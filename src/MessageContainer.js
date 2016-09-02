@@ -142,8 +142,8 @@ export default class MessageContainer extends React.Component {
           enableEmptySections={true}
           keyboardShouldPersistTaps={true}
           automaticallyAdjustContentInsets={false}
-          initialListSize={20}
-          pageSize={20}
+          initialListSize={this.props.initialListSize}
+          pageSize={this.props.pageSize}
 
           dataSource={this.state.dataSource}
 
@@ -165,6 +165,8 @@ MessageContainer.defaultProps = {
   renderMessage: null,
   onLoadEarlier: () => {
   },
+  initialListSize: 20,
+  pageSize: 20,
 };
 
 MessageContainer.propTypes = {
@@ -173,4 +175,6 @@ MessageContainer.propTypes = {
   renderFooter: React.PropTypes.func,
   renderMessage: React.PropTypes.func,
   onLoadEarlier: React.PropTypes.func,
+  initialListSize: React.PropTypes.number,
+  pageSize: React.PropTypes.number,
 };
