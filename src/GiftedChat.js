@@ -53,7 +53,8 @@ class GiftedChat extends React.Component {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: null,
-      typingDisabled: false
+      typingDisabled: false,
+      recalcHeight: false,
     };
 
     this.onTouchStart = this.onTouchStart.bind(this);
@@ -407,6 +408,12 @@ class GiftedChat extends React.Component {
     return null;
   }
 
+  recalcHeight() {
+    this.setState({
+      recalcHeight: true,
+    });
+  }
+
   render() {
     if (this.state.isInitialized === true) {
       return (
@@ -414,15 +421,21 @@ class GiftedChat extends React.Component {
           <View
             style={styles.container}
             onLayout={(e) => {
+              let androidRecalcHeight = false;
               if (Platform.OS === 'android') {
                 // fix an issue when keyboard is dismissing during the initialization
                 const layout = e.nativeEvent.layout;
                 if (this.getMaxHeight() !== layout.height && this.getIsFirstLayout() === true) {
-                  this.setMaxHeight(layout.height);
-                  this.setState({
-                    messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
-                  });
+                  androidRecalcHeight = true;
                 }
+              }
+              if (this.state.recalcHeight || androidRecalcHeight) {
+                const layout = e.nativeEvent.layout;
+                this.setMaxHeight(layout.height);
+                this.setState({
+                  messagesContainerHeight: this.prepareMessagesContainerHeight(this.getMaxHeight() - this.getMinInputToolbarHeight()),
+                  recalcHeight: false,
+                });
               }
               if (this.getIsFirstLayout() === true) {
                 this.setIsFirstLayout(false);
