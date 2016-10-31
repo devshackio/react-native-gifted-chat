@@ -55,6 +55,7 @@ class GiftedChat extends React.Component {
       messagesContainerHeight: null,
       typingDisabled: false,
       recalcHeight: false,
+      text: '',
     };
 
     this.onTouchStart = this.onTouchStart.bind(this);
@@ -442,7 +443,7 @@ class GiftedChat extends React.Component {
               }
             }}
           >
-            {this.renderMessages()}
+            {this.props.isLoading ? this.renderLoading() : this.renderMessages()}
             {this.renderInputToolbar()}
           </View>
         </ActionSheet>
@@ -465,6 +466,7 @@ class GiftedChat extends React.Component {
         }}
       >
         {this.renderLoading()}
+        {this.renderInputToolbar()}
       </View>
     );
   }
