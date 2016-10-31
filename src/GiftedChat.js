@@ -53,7 +53,8 @@ class GiftedChat extends React.Component {
       isInitialized: false, // initialization will calculate maxHeight before rendering the chat
       composerHeight: MIN_COMPOSER_HEIGHT,
       messagesContainerHeight: null,
-      typingDisabled: false
+      typingDisabled: false,
+      text: '',
     };
 
     this.onKeyboardWillShow = this.onKeyboardWillShow.bind(this);
@@ -436,7 +437,7 @@ class GiftedChat extends React.Component {
       return (
         <ActionSheet ref={component => this._actionSheetRef = component}>
           <View style={styles.container} onLayout={this.onMainViewLayout}>
-            {this.renderMessages()}
+            {this.props.isLoading ? this.renderLoading() : this.renderMessages()}
             {this.renderInputToolbar()}
           </View>
         </ActionSheet>
@@ -445,6 +446,7 @@ class GiftedChat extends React.Component {
     return (
       <View style={styles.container} onLayout={this.onInitialLayoutViewLayout}>
         {this.renderLoading()}
+        {this.renderInputToolbar()}
       </View>
     );
   }
@@ -527,6 +529,7 @@ GiftedChat.propTypes = {
   renderTime: React.PropTypes.func,
   user: React.PropTypes.object,
   bottomOffset: React.PropTypes.number,
+  isLoading: React.PropTypes.bool,
   isLoadingEarlier: React.PropTypes.bool,
   messageIdGenerator: React.PropTypes.func,
   keyboardShouldPersistTaps: React.PropTypes.oneOf(['always', 'never', 'handled']),
