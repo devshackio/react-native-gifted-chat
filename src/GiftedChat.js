@@ -446,6 +446,7 @@ class GiftedChat extends React.Component {
           >
             {this.props.isLoading ? this.renderLoading() : this.renderMessages()}
             {this.renderInputToolbar()}
+            {this.props.children}
           </View>
         </ActionSheet>
       );
@@ -543,6 +544,7 @@ GiftedChat.propTypes = {
   user: React.PropTypes.object,
   bottomOffset: React.PropTypes.number,
   isLoadingEarlier: React.PropTypes.bool,
+  children: React.PropTypes.element,
 };
 
 export {
