@@ -116,6 +116,8 @@ export default class MessageContainer extends React.Component {
       previousMessage: message.previousMessage,
       nextMessage: message.nextMessage,
       position: message.user._id === this.props.user._id ? 'right' : 'left',
+      sectionId,
+      rowId,
     };
 
     if (this.props.renderMessage) {
