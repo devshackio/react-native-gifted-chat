@@ -427,7 +427,14 @@ class GiftedChat extends React.Component {
 
   renderLoading() {
     if (this.props.renderLoading) {
-      return this.props.renderLoading();
+      const AnimatedView = this.props.isAnimated === true ? Animated.View : View;
+      return (
+        <AnimatedView style={{
+          height: this.state.messagesContainerHeight,
+        }}>
+          {this.props.renderLoading()}
+        </AnimatedView>
+      );
     }
     return null;
   }
