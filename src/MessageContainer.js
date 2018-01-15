@@ -105,7 +105,7 @@ export default class MessageContainer extends React.Component {
     return null;
   }
 
-  renderRow(message) {
+  renderRow(message, sectionId, rowId) {
     if (!message._id && message._id !== 0) {
       console.warn('GiftedChat: `_id` is missing for message', JSON.stringify(message));
     }
